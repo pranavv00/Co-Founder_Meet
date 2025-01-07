@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Register</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="whatsapp" class="form-label">WhatsApp Number</label>
+                        <input type="text" class="form-control" id="whatsapp" name="whatsapp" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="user_type" class="form-label">I am a:</label>
+                        <select class="form-select" id="user_type" name="user_type" required>
+                            <option value="founder">Founder with an Idea</option>
+                            <option value="developer">Technical Co-founder</option>
+                        </select>
+                    </div>
+                    
+                    <div id="dev_fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="github_username" class="form-label">GitHub Username</label>
+                            <input type="text" class="form-control" id="github_username" name="github_username">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="portfolio_url" class="form-label">Portfolio URL</label>
+                            <input type="url" class="form-control" id="portfolio_url" name="portfolio_url">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                
+                <div class="text-center mt-3">
+                    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('user_type').addEventListener('change', function() {
+    const devFields = document.getElementById('dev_fields');
+    if (this.value === 'developer') {
+        devFields.style.display = 'block';
+    } else {
+        devFields.style.display = 'none';
+    }
+});
+</script>
+{% endblock %}

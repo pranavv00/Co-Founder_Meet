@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Applications for {{ idea.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">Applications for: {{ idea.title }}</h2>
+        
+        {% if idea.applications %}
+            {% for application in idea.applications %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">{{ application.developer.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                {% if application.developer.github_username %}
+                                    <a href="https://github.com/{{ application.developer.github_username }}" target="_blank">
+                                        GitHub Profile
+                                    </a>
+                                {% endif %}
+                                {% if application.developer.portfolio_url %}
+                                    | <a href="{{ application.developer.portfolio_url }}" target="_blank">Portfolio</a>
+                                {% endif %}
+                            </h6>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-{{ 'success' if application.status == 'accepted' else 'secondary' }}">
+                                {{ application.status|title }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <p class="card-text mt-3">{{ application.proposal }}</p>
+                    
+                    <ul class="list-unstyled">
+                        <li><strong>Equity Ask:</strong> {{ application.equity_ask }}%</li>
+                        <li><strong>Salary Ask:</strong> ${{ application.salary_ask }}</li>
+                    </ul>
+                    
+                    {% if application.status == 'pending' %}
+                        <a href="{{ url_for('accept_application', app_id=application.id) }}" 
+                           class="btn btn-success">Accept Application</a>
+                    {% endif %}
+                    
+                    {% if application.status == 'accepted' %}
+                        <div class="alert alert-success mt-3">
+                            <strong>WhatsApp Contact:</strong> {{ application.developer.whatsapp }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info">
+                No applications received yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

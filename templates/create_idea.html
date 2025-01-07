@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Post New Idea{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Post Your Startup Idea</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Idea Title</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                        <div class="form-text">Describe your idea, target market, and what you're looking for in a technical co-founder.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="equity_offered" class="form-label">Equity Offered (%)</label>
+                        <input type="number" class="form-control" id="equity_offered" name="equity_offered" min="0" max="100" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="salary_range" class="form-label">Salary Range</label>
+                        <input type="text" class="form-control" id="salary_range" name="salary_range" placeholder="e.g. $80,000 - $120,000/year" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Post Idea</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

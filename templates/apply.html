@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Apply for {{ idea.title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">{{ idea.title }}</h3>
+                <h6 class="card-subtitle mb-2 text-muted">Posted by {{ idea.founder.name }}</h6>
+                <p class="card-text">{{ idea.description }}</p>
+                <ul class="list-unstyled">
+                    <li><strong>Equity Offered:</strong> {{ idea.equity_offered }}%</li>
+                    <li><strong>Salary Range:</strong> {{ idea.salary_range }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Submit Your Application</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="proposal" class="form-label">Your Proposal</label>
+                        <textarea class="form-control" id="proposal" name="proposal" rows="5" required></textarea>
+                        <div class="form-text">Describe your experience, skills, and why you'd be a great fit for this idea.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="equity_ask" class="form-label">Equity Ask (%)</label>
+                        <input type="number" class="form-control" id="equity_ask" name="equity_ask" 
+                               min="0" max="{{ idea.equity_offered }}" required>
+                        <div class="form-text">Maximum available equity: {{ idea.equity_offered }}%</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="salary_ask" class="form-label">Expected Salary ($)</label>
+                        <input type="number" class="form-control" id="salary_ask" name="salary_ask" required>
+                        <div class="form-text">Reference range: {{ idea.salary_range }}</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

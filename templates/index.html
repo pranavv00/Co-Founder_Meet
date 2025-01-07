@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Startup Ideas</h1>
+        {% if not current_user.is_authenticated %}
+            <div class="alert alert-info">
+                <h4>Welcome to Founder Connect!</h4>
+                <p>Connect with technical co-founders or find exciting startup ideas to work on.</p>
+                <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    {% for idea in ideas %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ idea.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Posted by {{ idea.founder.name }}</h6>
+                <p class="card-text">{{ idea.description }}</p>
+                <ul class="list-unstyled">
+                    <li><strong>Equity Offered:</strong> {{ idea.equity_offered }}%</li>
+                    <li><strong>Salary Range:</strong> {{ idea.salary_range }}</li>
+                </ul>
+                
+                {% if current_user.is_authenticated %}
+                    {% if current_user.user_type == 'developer' %}
+                        <a href="{{ url_for('apply', idea_id=idea.id) }}" class="btn btn-primary">Apply</a>
+                    {% endif %}
+                    
+                    {% if current_user.id == idea.founder_id %}
+                        <a href="{{ url_for('view_applications', idea_id=idea.id) }}" class="btn btn-info">View Applications</a>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-secondary">Login to Apply</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

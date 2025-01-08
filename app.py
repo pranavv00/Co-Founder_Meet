@@ -7,8 +7,8 @@ from datetime import datetime
 from github import Github
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///founder_connect.db'
+app.config['SECRET_KEY'] = 'your-secret-key-here'  # Replace os.urandom(24) with a fixed secret key
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///founder_connect.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
